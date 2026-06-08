@@ -24,6 +24,15 @@ axios.interceptors.request.use(config => {
   return config
 })
 
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const store = loginStore();
+    store.token = undefined;
+    return Promise.reject(error);
+  }
+);
+
 const app = createApp(App)
 
 app.use(pinia)
